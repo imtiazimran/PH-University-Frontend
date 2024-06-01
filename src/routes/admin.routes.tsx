@@ -6,8 +6,6 @@ import AcademicSemister from "../pages/admin/academicManagement/AcademicSemister
 
 
 
-
-
 export const adminRoutes = [
     {
         name: 'dashboard',
