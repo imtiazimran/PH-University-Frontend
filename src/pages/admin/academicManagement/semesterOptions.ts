@@ -18,7 +18,7 @@ export const nameOptions = [
     value: currentYear + i,
     label: currentYear + i,
   }));
-   const monthNames = [
+  export const monthNames = [
     "January",
     "February",
     "March",
