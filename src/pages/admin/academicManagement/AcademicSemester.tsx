@@ -1,26 +1,34 @@
 import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { useState } from "react";
+import { yearOptions } from "./semesterOptions";
+import { TQueryParams } from "../../../types";
 
-type DataType = Pick<
-  TAcademicSemester,
-  "_id" | "year" | "startMonth" | "endMonth"
->;
+type DataType = Pick<TAcademicSemester, "year" | "startMonth" | "endMonth">;
 
 const AcademicSemester = () => {
-  const { data: semesterData, isLoading } = useGetAllSemestersQuery([{
-    name: "startMonth",
-    value: "January",
-  }]);
+  const [params, setParams] = useState<TQueryParams[] | undefined>(undefined);
+  const {
+    data: semesterData,
+    isLoading,
+    isFetching,
+  } = useGetAllSemestersQuery(params);
   const tableData = semesterData?.data?.map(
     ({ _id, name, year, startMonth, endMonth }) => ({
-      _id,
+      key: _id,
       name,
       year,
       startMonth,
       endMonth,
     })
   );
+
+  const yearFilter = yearOptions?.map((item) => ({
+    text: item.label,
+    value: item.value,
+  }));
+  console.log(yearFilter);
   const columns: TableColumnsType<DataType> = [
     {
       title: "Name",
@@ -28,26 +36,16 @@ const AcademicSemester = () => {
       showSorterTooltip: { target: "full-header" },
       filters: [
         {
-          text: "Joe",
-          value: "Joe",
+          text: "Autumn",
+          value: "Autumn",
         },
         {
-          text: "Jim",
-          value: "Jim",
+          text: "Fall",
+          value: "Fall",
         },
         {
-          text: "Submenu",
-          value: "Submenu",
-          children: [
-            {
-              text: "Green",
-              value: "Green",
-            },
-            {
-              text: "Black",
-              value: "Black",
-            },
-          ],
+          text: "Summer",
+          value: "Summer",
         },
       ],
     },
@@ -55,47 +53,48 @@ const AcademicSemester = () => {
       title: "Year",
       dataIndex: "year",
       defaultSortOrder: "descend",
+      filters: yearFilter,
     },
     {
       title: "Start Month",
       dataIndex: "startMonth",
-      filters: [
-        {
-          text: "London",
-          value: "London",
-        },
-        {
-          text: "New York",
-          value: "New York",
-        },
-      ],
+      defaultSortOrder: "descend",
     },
     {
       title: "End Month",
       dataIndex: "endMonth",
+      defaultSortOrder: "descend",
     },
   ];
 
   const onChange: TableProps<DataType>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
-    console.log("params", pagination, filters, sorter, extra);
+    if (extra.action === "filter") {
+      const queryParams : TQueryParams[] = [];
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: "name", value: item })
+      );
+      filters.year?.forEach((item) =>
+        queryParams.push({ name: "year", value: item })
+      );
+      setParams(queryParams);
+    }
+    console.log("params", filters, extra);
   };
   console.log(semesterData);
 
   return (
-    <div>
-      {isLoading && <div>Loading...</div>}
-      <Table
-        columns={columns}
-        dataSource={tableData}
-        onChange={onChange}
-        showSorterTooltip={{ target: "sorter-icon" }}
-      />
-    </div>
+    <Table
+      loading={isFetching || isLoading}
+      columns={columns}
+      dataSource={tableData}
+      onChange={onChange}
+      showSorterTooltip={{ target: "sorter-icon" }}
+    />
   );
 };
 
