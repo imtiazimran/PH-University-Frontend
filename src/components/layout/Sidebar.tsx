@@ -13,22 +13,21 @@ const userRole = {
   ADMIN: "admin",
   FACULTY: "faculty",
   STUDENT: "student",
-}
+};
 
 const Sidebar = () => {
-  const user = useAppSelector(selectCurrentUser)
-  let sidebarItems 
-
+  const user = useAppSelector(selectCurrentUser);
+  let sidebarItems;
 
   switch (user!.role) {
     case userRole.FACULTY:
-      sidebarItems = sidebarItemsGenerator(facultyRoutes, userRole.FACULTY)
+      sidebarItems = sidebarItemsGenerator(facultyRoutes, userRole.FACULTY);
       break;
     case userRole.ADMIN:
-      sidebarItems = sidebarItemsGenerator(adminRoutes, userRole.ADMIN)
+      sidebarItems = sidebarItemsGenerator(adminRoutes, userRole.ADMIN);
       break;
     case userRole.STUDENT:
-      sidebarItems = sidebarItemsGenerator(studentRoute, userRole.STUDENT)
+      sidebarItems = sidebarItemsGenerator(studentRoute, userRole.STUDENT);
       break;
 
     default:
@@ -36,15 +35,9 @@ const Sidebar = () => {
   }
   return (
     <Sider
-      style={{ height: "100vh", overflow: "auto", position: "sticky", left: 0, top: 0 }}
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+      style={{ height: "100vh", position: "sticky", left: 0, top: 0 }}
     >
       <div
         style={{

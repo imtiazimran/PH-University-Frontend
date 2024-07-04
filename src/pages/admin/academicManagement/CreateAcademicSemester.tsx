@@ -41,7 +41,7 @@ const CreateAcademicSemester = () => {
 
   return (
     <Flex justify="center" align="center">
-      <Col span={6}>
+      <Col span={24} md={{span: 8}}>
         <PHForm
           onSubmit={onSubmit}
           resolver={zodResolver(createSemesterSchema)}

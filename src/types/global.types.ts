@@ -28,5 +28,5 @@ export type TResponseRedux<T> = TResponse<T> & BaseQueryApi
 
 export type TQueryParams = {
     name: string;
-    value: boolean | Key;
+    value: boolean | Key | number | undefined;
 }

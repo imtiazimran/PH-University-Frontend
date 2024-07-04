@@ -86,7 +86,7 @@ const AcademicSemester = () => {
   ];
 
   const onChange: TableProps<DataType>["onChange"] = (
-    _pagination,
+    pagination,
     filters,
     _sorter,
     extra
@@ -105,11 +105,12 @@ const AcademicSemester = () => {
       filters.endMonth?.forEach((item) =>{
         queryParams.push({ name: "endMonth", value: item })
       })
+      queryParams.push({ name: "limit", value: pagination.pageSize })
+      queryParams.push({ name: "page", value: pagination.current })
       setParams(queryParams);
     }
-    console.log("params", filters, extra);
+    console.log("params", filters, extra, pagination);
   };
-  console.log(semesterData);
 
   return (
     <Table
@@ -118,6 +119,7 @@ const AcademicSemester = () => {
       dataSource={tableData}
       onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
+      pagination={{ defaultPageSize: 5, showSizeChanger: true }}
     />
   );
 };
