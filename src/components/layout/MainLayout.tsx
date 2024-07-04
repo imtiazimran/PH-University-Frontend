@@ -17,7 +17,7 @@ const MainLayout: React.FC = () => {
   return (
     <Layout>
      <Sidebar/>
-      <Layout style={{ height: "100vh" }}>
+      <Layout>
         <Header  style={{ padding: 0, background: "#001529" }} >
           <Button onClick={handleLogout}>Logout</Button>
         </Header>
@@ -26,7 +26,6 @@ const MainLayout: React.FC = () => {
             style={{
               padding: 24,
               minHeight: 360,
-              background: "#fff",
               borderRadius: 10,
             }}
           >
