@@ -7,6 +7,7 @@ export type TError = {
         message: string,
         stack: string,
         success: boolean
+        errorSources?: { path: string, message: string }
     };
     status: number
 }
