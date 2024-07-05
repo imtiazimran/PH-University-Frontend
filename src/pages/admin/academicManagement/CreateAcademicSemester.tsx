@@ -8,8 +8,11 @@ import { createSemesterSchema } from "../../../schemas/academicManagementSchema"
 import { useCreateSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global.types";
-import { monthOptions, nameOptions, yearOptions } from "./semesterOptions";
-
+import {
+  monthOptions,
+  nameOptions,
+  yearOptions,
+} from "../../../components/constants/semesterOptions";
 
 const CreateAcademicSemester = () => {
   const [createSemester] = useCreateSemesterMutation();
@@ -41,7 +44,7 @@ const CreateAcademicSemester = () => {
 
   return (
     <Flex justify="center" align="center">
-      <Col span={24} md={{span: 8}}>
+      <Col span={24} md={{ span: 8 }}>
         <PHForm
           onSubmit={onSubmit}
           resolver={zodResolver(createSemesterSchema)}

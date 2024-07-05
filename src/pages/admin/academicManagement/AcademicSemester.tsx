@@ -2,7 +2,10 @@ import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
-import { monthNames, yearOptions } from "./semesterOptions";
+import {
+  monthNames,
+  yearOptions,
+} from "../../../components/constants/semesterOptions";
 import { TQueryParams } from "../../../types";
 
 type DataType = Pick<TAcademicSemester, "year" | "startMonth" | "endMonth">;
@@ -28,12 +31,12 @@ const AcademicSemester = () => {
     text: item.label,
     value: item.value,
   }));
- 
-  const monthFilter = monthNames.map((item) =>({
+
+  const monthFilter = monthNames.map((item) => ({
     text: item,
-    value: item
-  }))
-  
+    value: item,
+  }));
+
   const columns: TableColumnsType<DataType> = [
     {
       title: "Name",
@@ -64,25 +67,25 @@ const AcademicSemester = () => {
       title: "Start Month",
       dataIndex: "startMonth",
       defaultSortOrder: "descend",
-      filters: monthFilter
+      filters: monthFilter,
     },
     {
       title: "End Month",
       dataIndex: "endMonth",
       defaultSortOrder: "descend",
-      filters: monthFilter
+      filters: monthFilter,
     },
     {
       title: "Action",
-      key: 'x',
-      render: () =>{
+      key: "x",
+      render: () => {
         return (
           <div>
             <Button>Update</Button>
           </div>
-        )
-      }
-    }
+        );
+      },
+    },
   ];
 
   const onChange: TableProps<DataType>["onChange"] = (
@@ -92,21 +95,21 @@ const AcademicSemester = () => {
     extra
   ) => {
     if (extra.action === "filter") {
-      const queryParams : TQueryParams[] = [];
+      const queryParams: TQueryParams[] = [];
       filters.name?.forEach((item) =>
         queryParams.push({ name: "name", value: item })
       );
       filters.year?.forEach((item) =>
         queryParams.push({ name: "year", value: item })
       );
-      filters.startMonth?.forEach((item) =>{
-        queryParams.push({ name: "startMonth", value: item })
-      })
-      filters.endMonth?.forEach((item) =>{
-        queryParams.push({ name: "endMonth", value: item })
-      })
-      queryParams.push({ name: "limit", value: pagination.pageSize })
-      queryParams.push({ name: "page", value: pagination.current })
+      filters.startMonth?.forEach((item) => {
+        queryParams.push({ name: "startMonth", value: item });
+      });
+      filters.endMonth?.forEach((item) => {
+        queryParams.push({ name: "endMonth", value: item });
+      });
+      queryParams.push({ name: "limit", value: pagination.pageSize });
+      queryParams.push({ name: "page", value: pagination.current });
       setParams(queryParams);
     }
     console.log("params", filters, extra, pagination);

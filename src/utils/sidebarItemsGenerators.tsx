@@ -13,12 +13,19 @@ export const sidebarItemsGenerator = (items: TUserPaths[], role: string) => {
       acc.push({
         key: route.name,
         label: route.name,
-        children: route.children.map((children) => ({
-          key: children.name,
-          label: (
-            <NavLink to={`/${role}/${children.path}`}> {children.name} </NavLink>
-          ),
-        })),
+        children: route.children.map((children) => {
+          if (children.name) {
+            return {
+              key: children.name,
+              label: (
+                <NavLink to={`/${role}/${children.path}`}>
+                  {" "}
+                  {children.name}{" "}
+                </NavLink>
+              ),
+            };
+          }
+        }),
       });
     }
 
