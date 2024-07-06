@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Menu, Layout } from "antd";
 import { NavLink } from "react-router-dom";
@@ -7,6 +8,8 @@ import { facultyRoutes } from "../../routes/faculty.routes";
 import { studentRoute } from "../../routes/student.routes";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+
+
 const { Sider } = Layout;
 
 const userRole = {
@@ -17,9 +20,9 @@ const userRole = {
 
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
-  let sidebarItems;
+  let sidebarItems:  any;
 
-  switch (user!.role) {
+  switch (user?.role) {
     case userRole.FACULTY:
       sidebarItems = sidebarItemsGenerator(facultyRoutes, userRole.FACULTY);
       break;
@@ -29,15 +32,16 @@ const Sidebar = () => {
     case userRole.STUDENT:
       sidebarItems = sidebarItemsGenerator(studentRoute, userRole.STUDENT);
       break;
-
     default:
+      sidebarItems = [];
       break;
   }
+
   return (
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-      style={{ height: "100vh", position: "sticky", left: 0, top: 0 }}
+      style={{ height: "100vh", position: "sticky", left: 0, top: 0, zIndex: '100' }}
     >
       <div
         style={{

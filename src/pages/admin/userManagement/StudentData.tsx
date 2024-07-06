@@ -64,7 +64,9 @@ const StudentData = () => {
       render: (item) => {
         return (
           <Space>
+            <Link to={`/admin/student-update/${item.key}`}>
             <Button>Update</Button>
+            </Link>
             <Link to={`/admin/student/${item.key}`}>
               <Button>Details</Button>
             </Link>
@@ -106,6 +108,8 @@ const StudentData = () => {
   return (
     <>
       <Table
+        bordered
+        scroll={{ x: 800 }}
         loading={isFetching || isLoading}
         columns={columns}
         dataSource={tableData}

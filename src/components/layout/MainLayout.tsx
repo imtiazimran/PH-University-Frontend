@@ -1,36 +1,37 @@
 import React from "react";
 import { Button, Layout } from "antd";
-import {  Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useAppDispatch } from "../../redux/hooks";
 import { logOut } from "../../redux/features/auth/authSlice";
+import styled from "styled-components";
 
 const { Header, Content } = Layout;
 
-
-
-const MainLayout: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const handleLogout = () => {
-    dispatch(logOut())
+const StyledOutletDiv = styled.div`
+  padding: 24px;
+  min-height: 360px;
+  border-radius: 10px;
+  @media (max-width: 576px) {
+    padding: 0px;
   }
+`;
+const MainLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
   return (
     <Layout>
-     <Sidebar/>
+      <Sidebar />
       <Layout>
-        <Header  style={{ padding: 0, background: "#001529" }} >
+        <Header style={{ padding: 0, background: "#001529" }}>
           <Button onClick={handleLogout}>Logout</Button>
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              borderRadius: 10,
-            }}
-          >
+          <StyledOutletDiv>
             <Outlet />
-          </div>
+          </StyledOutletDiv>
         </Content>
       </Layout>
     </Layout>
