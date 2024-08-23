@@ -11,12 +11,18 @@ import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcad
 import StudentData from "../pages/admin/userManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/StudentDetails";
 import UpdateStudent from "../pages/admin/userManagement/UpdateStudent";
+import RegisterSemester from "../pages/admin/courseManagement/RegisterSemester";
+import SemesterManagement from "../pages/admin/courseManagement/SemesterManagement";
+import CreateCourse from "../pages/admin/courseManagement/CreateCourse";
+import Courses from "../pages/admin/courseManagement/Courses";
+import OfferCourse from "../pages/admin/courseManagement/OfferCourse";
+import OfferedCourses from "../pages/admin/courseManagement/OfferedCourses";
 
 
 
 export const adminRoutes = [
     {
-        name: 'dashboard',
+        name: 'Dashboard',
         path: 'dashboard',
         element: <AdminDashboard />
     },
@@ -56,7 +62,7 @@ export const adminRoutes = [
         ]
     },
     {
-        name: 'user management',
+        name: 'User management',
         children: [
             {
                 name: 'Create Admin',
@@ -85,6 +91,41 @@ export const adminRoutes = [
             {
                 path:'student-update/:id',
                 element: <UpdateStudent/>
+            }
+        ]
+    },
+    {
+        name: 'Course Management',
+        children: [
+            {
+                name: 'Semester Registration',
+                path: 'semester-registration',
+                element: <RegisterSemester/>
+            },
+            {
+                name: 'Register Semesters',
+                path: 'register-semesters',
+                element: <SemesterManagement/>
+            },
+            {
+                name: 'Create Course',
+                path: 'create-course',
+                element: <CreateCourse/>
+            },
+            {
+                name: 'Courses',
+                path: 'courses',
+                element: <Courses/>
+            },
+            {
+                name: 'Offer Course',
+                path: 'offer-course',
+                element: <OfferCourse/>
+            },
+            {
+                name: 'Offered Courses',
+                path: 'offered-courses',
+                element: <OfferedCourses/>
             }
         ]
     }

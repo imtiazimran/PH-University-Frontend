@@ -1,7 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleStudentQuery } from "../../../redux/features/admin/userManagement.api";
-import { Card, Row, Col, Descriptions, Spin, Divider, Button } from 'antd';
+import { Card, Row, Col, Descriptions, Divider, Button } from 'antd';
 import styled from 'styled-components';
+import Loading from "../../../utils/Loading";
 
 
 const labelStyle = { width: '50%' };
@@ -12,7 +13,7 @@ const StudentDetails = () => {
     const { data, isLoading } = useGetSingleStudentQuery(id);
 
     if (isLoading) {
-        return <Spin tip="Loading..." style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}  size="large" />;
+        return <Loading/>
     }
 
     if (!data?.data) {
