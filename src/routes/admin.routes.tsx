@@ -103,7 +103,7 @@ export const adminRoutes = [
                 element: <RegisterSemester/>
             },
             {
-                name: 'Register Semesters',
+                name: ' Semesters Management',
                 path: 'register-semesters',
                 element: <SemesterManagement/>
             },

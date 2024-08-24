@@ -61,5 +61,6 @@ async (args, api, extraOptions): Promise<any> => {
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
+  tagTypes: ['SemesterRegistration'],
   endpoints: () => ({})
 });
